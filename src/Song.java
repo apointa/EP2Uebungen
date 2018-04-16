@@ -1,7 +1,7 @@
 /*
     Song
 */
-public class Song {
+public class Song implements Comparable<Song>{
 
     private String titel;
     private String band;
@@ -27,6 +27,14 @@ public class Song {
 
     void print() {
         System.out.println(band + ": " + titel + " (" + leange + "s)");
+    }
+
+    @Override
+    public int compareTo(Song comp) {
+        if (comp != null) {
+            return titel.compareTo(comp.getTitel());
+        }
+        return -1;
     }
 }
 
