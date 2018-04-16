@@ -12,6 +12,7 @@ public class SongTree {
         size = 0;
     }
 
+    //Add a song to the tree
     void add (Song song) {
         if (root != null) {
             if (root.add(song))
@@ -23,6 +24,7 @@ public class SongTree {
         }
     }
 
+    //Get a song with a specific title in the tree, returns null if no such song is existing
     Song lookupTitle(String title) {
         TreeNode actNode = root;
         while (actNode!=null) {
@@ -36,6 +38,7 @@ public class SongTree {
         return null;
     }
 
+    //Get the sum of the length of all songs in the tree
     long getLaenge() {
         if (root != null)
             return root.getLengthAll();
@@ -43,6 +46,7 @@ public class SongTree {
             return 0;
     }
 
+    //Print the values of the whole tree
     void print() {
         if (root != null)
             root.printAll();
