@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
     UE2
     easy implementation of a singly linked list for Songs
 */
-public class LinkedListSong implements Iterable<Song> {
+public class LinkedListSong implements SongIterable {
 
     private ListNodeSong head;
     private ListNodeSong tail;
@@ -92,7 +92,17 @@ public class LinkedListSong implements Iterable<Song> {
     }
 
     @Override
-    public Iterator<Song> iterator() {
+    public String toString() {
+        String s = "";
+        for(Song song : this) {
+            if (song != null)
+                s += song.toString() + "\n";
+        }
+        return s;
+    }
+
+    @Override
+    public SongIterator iterator() {
         return new LinkedListSongIterator();
     }
 
@@ -105,7 +115,7 @@ public class LinkedListSong implements Iterable<Song> {
         }
     }
 
-    private class LinkedListSongIterator implements Iterator<Song> {
+    private class LinkedListSongIterator implements SongIterator {
         private ListNodeSong nextNode;
         public LinkedListSongIterator() {
             nextNode = head;

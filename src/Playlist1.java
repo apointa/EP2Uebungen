@@ -1,9 +1,10 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /*
     Playlist1 _ UE2
 */
-public class Playlist1 {
+public class Playlist1 implements SongIterable {
 
     private LinkedListSong songlist;
 
@@ -85,6 +86,16 @@ public class Playlist1 {
             if (song != null)
                 song.print();
         }
+    }
+
+    @Override
+    public String toString() {
+        return songlist.toString();
+    }
+
+    @Override
+    public SongIterator iterator() {
+        return songlist.iterator();
     }
 
 }

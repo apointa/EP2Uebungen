@@ -1,8 +1,10 @@
+import java.math.BigInteger;
+
 /*
     UE3
     easy implementation of a binary search tree for Songs
 */
-public class SongTree {
+public class SongTree implements SongIterable{
 
     private TreeNode root;
     private int size;
@@ -52,6 +54,10 @@ public class SongTree {
             root.printAll();
     }
 
+    @Override
+    public SongIterator iterator() {
+        return new TreeIterator();
+    }
 
     private class TreeNode {
         private Song value;
@@ -103,6 +109,66 @@ public class SongTree {
         }
         private long getLength() {
             return value.getLeange();
+        }
+    }
+
+    private class TreeIterator implements SongIterator {
+        private int depth;
+        private long path;
+
+        public TreeIterator() {
+            depth = -1;
+            TreeNode node = root;
+            path = 0;
+            while (node!= null) {
+                node = node.left;
+                depth++;
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return depth != -1;
+        }
+
+        @Override
+        public Song next() {
+            TreeNode actNode = root;
+            long mask = 1;
+            for (int i = 0; i < depth; i++) {
+                if ((path & mask) == 0)
+                    actNode = actNode.left;
+                else
+                    actNode = actNode.right;
+
+                mask = mask << 1;
+            }
+
+            //Set path and depth for next node
+            //Node has right child
+            if (actNode.right != null) {
+                path = (path | mask);
+                TreeNode nextNode = actNode.right;
+                while (nextNode != null) {
+                    nextNode = nextNode.left;
+                    depth++;
+
+                    //Clear path
+                    mask = mask << 1;
+                    path = (path & ~mask);
+                }
+            }
+            else {
+                depth--;
+                mask = mask >> 1;
+                //War rechtes Kind-> zurückgehen bis erste Rechtsabzweigung
+                while ((path & mask) != 0) {
+                    mask = mask >> 1;
+                    depth--;
+                }
+            }
+
+            return actNode.value;
         }
     }
 
