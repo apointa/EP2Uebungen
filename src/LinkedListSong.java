@@ -117,8 +117,22 @@ public class LinkedListSong implements SongIterable {
 
     private class LinkedListSongIterator implements SongIterator {
         private ListNodeSong nextNode;
+        private String minTitle;
+        private long maxLength;
+
         public LinkedListSongIterator() {
             nextNode = head;
+        }
+
+        public LinkedListSongIterator(String minTitle, long maxLength) {
+            this.minTitle = minTitle;
+            this.maxLength = maxLength;
+            nextNode = head;
+            while (nextNode != null) {
+                if (nextValid())
+                    break;
+                nextNode = nextNode.next;
+            }
         }
 
         @Override
@@ -133,8 +147,20 @@ public class LinkedListSong implements SongIterable {
             else {
                 ListNodeSong returnNode = nextNode;
                 nextNode = nextNode.next;
+                while (nextNode != null) {
+                    if (nextValid())
+                        break;
+                    nextNode = nextNode.next;
+                }
                 return returnNode.value;
             }
+        }
+
+        public boolean nextValid() {
+            if (minTitle == null)
+                return true;
+
+            return nextNode.value.getTitel().compareTo(minTitle) < 1 && nextNode.value.getLeange() < maxLength;
         }
     }
 }
