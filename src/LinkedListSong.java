@@ -1,11 +1,11 @@
-import java.util.Iterator;
+import java.util.AbstractCollection;
 import java.util.NoSuchElementException;
 
 /*
     UE2
     easy implementation of a singly linked list for Songs
 */
-public class LinkedListSong implements SongIterable {
+public class LinkedListSong extends AbstractCollection<Song> implements SongIterable {
 
     private ListNodeSong head;
     private ListNodeSong tail;
@@ -17,8 +17,9 @@ public class LinkedListSong implements SongIterable {
         size = 0;
     }
 
-    public void add(Song song) {
+    public boolean add(Song song) {
         addLast(song);
+        return true;
     }
     //Add Song element at the specific position
     public void add(int index, Song song) {
@@ -89,6 +90,11 @@ public class LinkedListSong implements SongIterable {
     }
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public int size() {
+        return getSize();
     }
 
     @Override
@@ -163,5 +169,6 @@ public class LinkedListSong implements SongIterable {
             return nextNode.value.getTitel().compareTo(minTitle) < 1 && nextNode.value.getLeange() < maxLength;
         }
     }
+
 }
 

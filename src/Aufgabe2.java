@@ -8,7 +8,7 @@ public class Aufgabe2 {
         //TEST UE2
         //
         //SampleData
-        Playlist1 list = new Playlist1(100);
+        Playlist1 list = new Playlist1();
         for (int i = 0; i<=99; i++) {
             list.add(new Song("BestSongNo " + i, "Tenacious D", (100*i % 1000) + 10*(i/10)));
         }

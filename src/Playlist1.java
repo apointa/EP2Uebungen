@@ -1,6 +1,3 @@
-import java.util.Iterator;
-import java.util.LinkedList;
-
 /*
     Playlist1 _ UE2
 */
@@ -8,8 +5,13 @@ public class Playlist1 implements SongIterable {
 
     private LinkedListSong songlist;
 
-    public Playlist1(int n) {
+    public Playlist1() {
         songlist = new LinkedListSong();
+    }
+
+    public Playlist1(String filname) {
+        songlist = new LinkedListSong();
+        new SongIOHandler().readSongsExt(songlist, filname);
     }
 
     //Creates a Playlist of the songs of myPlaylist which are in a specified length range
@@ -86,6 +88,10 @@ public class Playlist1 implements SongIterable {
             if (song != null)
                 song.print();
         }
+    }
+
+    void save(String filename) {
+        new SongIOHandler().saveSongsExt(songlist, filename);
     }
 
     @Override
