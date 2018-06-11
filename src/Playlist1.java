@@ -29,13 +29,17 @@ public class Playlist1 implements SongIterable {
     }
 
     //Get Length in seconds of complete Playlist
+    //Return Wert ist 0 oder positiv
     long getLaenge() {
-        long leange = 0;
+        long laenge = 0;
         for (Song song : songlist) {
+            assert laenge >= 0;
             if (song != null)
-                leange += song.getLeange();
+                laenge += song.getLeange();
+            assert laenge >= 0;
         }
-        return leange;
+        assert laenge >= 0;
+        return laenge;
     }
 
     Song lookupTitle(String title) {

@@ -7,7 +7,7 @@ import java.math.BigInteger;
 public class SongTree implements SongIterable{
 
     private TreeNode root;
-    private int size;
+    private int size; // size >= 0
 
     public SongTree() {
         root = null;
@@ -15,12 +15,18 @@ public class SongTree implements SongIterable{
     }
 
     //Add a song to the tree
+    // song != null
+    // tree contains song object or equal song object
     void add (Song song) {
+        assert song != null;
         if (root != null) {
+            assert root != null;
             if (root.add(song))
+                //new object was added to the tree
                 size++;
         }
         else {
+            assert root == null;
             root = new TreeNode(song);
             size++;
         }
@@ -68,24 +74,33 @@ public class SongTree implements SongIterable{
             this.value = value;
         }
 
+        //newSong != null
         private boolean add(Song newSong) {
+            assert newSong != null;
             if (value.compareTo(newSong) > 0) {
+                //new Song is smaller than song from act node
                 if (left != null)
+                    //left tree is not null
                     return left.add(newSong);
                 else {
+                    //left tree is null
                     left = new TreeNode(newSong);
-                    return true;
+                    return true; //new node was added to tree
                 }
             }
             else if(value.compareTo(newSong) < 0) {
+                    //new Song is smaller than song from act node
                 if (right != null)
+                    //right tree is not null
                     return right.add(newSong);
                 else {
+                    //right tree is null
                     right = new TreeNode(newSong);
-                    return true;
+                    return true; //new node was added to tree
                 }
             }
-            return false;
+            //newSong is equal to song from actual node
+            return false; //no new node was added to tree
         }
 
         private void printAll() {
